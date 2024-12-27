@@ -32,20 +32,6 @@ public class AssemblyHashCalculator
             assemblyName);
     }
 
-    //public static FunctionHash CalculateFunctionHash(AssemblyHash assemblyHash,
-    //    string calcTypeFullName)
-    //{
-    //    var hashCalcContext = new HashCalculationContext();
-    //    hashCalcContext.FeedBytes(assemblyHash.HashValue.Span);
-    //    hashCalcContext.FeedBytes(System.Text.Encoding.UTF8.GetBytes(calcTypeFullName));
-
-    //    var hash = hashCalcContext.GetFinalHashBytes();
-    //    if (hash is null)
-    //        throw new InvalidOperationException("No hash could be generated.");
-
-    //    return new FunctionHash(hash.Value.algorithm, hash.Value.hashValue);
-    //}
-
     private AssemblyHash CalculateAssemblyHash(
         HashSet<string> visited,
         AssemblyName assemblyName)
