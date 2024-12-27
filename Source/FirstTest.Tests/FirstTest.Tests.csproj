@@ -10,6 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoFixture.Xunit2" Version="4.18.1" />
     <PackageReference Include="coverlet.collector" Version="6.0.0" />
     <PackageReference Include="FluentAssertions" Version="7.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
@@ -18,7 +19,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MuniNet.Core\MuniNet.Core.csproj" />
+    <ProjectReference Include="..\MuniNet.Storage.Memory\MuniNet.Storage.Memory.csproj" />
+    <ProjectReference Include="..\Tests\FirstTestLib\FirstTestLib.csproj" />
   </ItemGroup>
 
   <ItemGroup>
