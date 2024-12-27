@@ -1,0 +1,84 @@
+* Deps
+===========
+
+Value: (either concrete value or hash). Protobuf?
+Assembly-tree, version (hash of tree): Assembly-ref
+Function (class name + Assembly-ref)
+
+Cached value: (Function + Value(s)) => Value (unhashed)
+
+
+Operations:
+* Look up cached values based on (Function + Value(s))
+	- Side effect: Update last used on + usage count
+* Remove cached values for all dependants on specific assembly versions
+* Trim cache (variable aggresiveness?): Remove cached values not used in time intervals
+
+CacheStorageProviders:
+* InMemory
+* SqlLite
+* Redis
+* Postgres
+* Azure TableStorage
+* Custom? 
+
+
+
+
+"SQL Schema":
+
+Protobuf schema
+======
+* DbId
+* Name
+* Version?
+* ContentHash
+
+Protobuf type
+======
+* DbId
+* ProtobufSchemaId
+* MessageName
+
+Assembly
+========
+* DbId
+* Name
+* Version
+* ContentHash
+* RegisteredOn
+
+AssemblyDependson
+==========
+* AssemblyDbId
+* DependsOnAssemblyDbId
+
+FunctionClass
+==========
+* AssemblyDbId
+* FullName
+
+EncodedValue (if no references from FunctionClassCachedValue, then any record here can be removed)
+================
+* DbId
+* Encoding (Protobuf, Json, Bson, other?)
+* BinaryValue
+* HashAlg
+* Hash (sha256?) (32 bytes - perhaps omitted if sizeof(ProtoBufValue) < ~64 bytes)
+
+FunctionClassCachedValue
+* DbId
+* FunctionClassDbId
+* InputEncodedValueId
+* OutputEncodedValueId
+* PartitionDbId (optional, might correspond to e.g. Tenant)
+* CreatedOn
+* LastAccessedOn
+* AccessedCount
+
+
+
+
+Example ClassFunctions:
+============================
+* LookupPartOfDatabase(ClientId, VersionId) -> Snapshot
