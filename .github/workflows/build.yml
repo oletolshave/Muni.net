@@ -26,3 +26,8 @@ jobs:
     - name: Build
       run: dotnet build --no-restore Source/MuniNet.sln /p:Configuration=Release /p:Platform="Any CPU"
       
+    - name: Run all tests
+      working-directory: Source
+      run: dotnet test --configuration Release --logger trx --results-directory "XunitTestReports" --filter "Category=CI"
+ 
+  
