@@ -11,5 +11,10 @@ public interface ICacheStorageEngine
         ReadOnlySpan<byte> inputValue,
         ReadOnlySpan<byte> outputValue);
 
+    //IAsyncEnumerable<KeyValuePair<FunctionHash, ReadOnlyMemory<byte>>> ListKeys();
+
+    //ValueTask<bool> TryRemove(FunctionHash functionHas, ReadOnlySpan<byte> inputValue);
+    ValueTask RemoveAllKeys();
+
     ValueTask<long> ReadEstimatedCacheSize();
 }

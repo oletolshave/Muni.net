@@ -1,5 +1,4 @@
-﻿using MuniNet.Core.Caching;
-using MuniNet.Core.Hashing;
+﻿using MuniNet.Core.Hashing;
 using MuniNet.Core.Storage;
 
 namespace MuniNet.Storage.Memory;
@@ -79,6 +78,16 @@ internal class MemoryStorageEngine : ICacheStorageEngine
         }
 
         return ValueTask.FromResult(totalBytes);
+    }
+
+    public ValueTask RemoveAllKeys()
+    {
+        lock (_lock)
+        {
+            _simpleList.Clear();
+        }
+
+        return ValueTask.CompletedTask;
     }
 
     private int FindIndexWhileLocked(FunctionHash functionHash, ReadOnlySpan<byte> inputValue)

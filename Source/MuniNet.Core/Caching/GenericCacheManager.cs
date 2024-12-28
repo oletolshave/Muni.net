@@ -68,11 +68,22 @@ public class GenericCacheManager : ICacheManagerControl
         ReadOnlyMemory<byte> inputValue,
         ReadOnlyMemory<byte> outputValue)
     {
-        var currentCacheSize = await _storageEngine.ReadEstimatedCacheSize();
+        var newSize = EstimateConsumedBytes(functionHash, inputValue.Span, outputValue.Span);
 
-        // TODO: Do we need to evict something from the cache?
+        await EvictUntilEnoughRoom(newSize);
 
         return await _storageEngine.TryAdd(functionHash, inputValue.Span, outputValue.Span);
+    }
+
+    private async ValueTask EvictUntilEnoughRoom(long additionalBytes)
+    {
+        // TODO: This is not optimal at all. Please optimize.
+        var currentCacheSize = await _storageEngine.ReadEstimatedCacheSize();
+
+        if (currentCacheSize + additionalBytes > _maxCacheSizeBytes)
+        {
+            await _storageEngine.RemoveAllKeys();
+        }
     }
 
     private FunctionHash GetFunctionHash(Type calcType)
