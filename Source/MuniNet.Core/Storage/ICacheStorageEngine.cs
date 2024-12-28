@@ -10,4 +10,6 @@ public interface ICacheStorageEngine
     ValueTask<bool> TryAdd(FunctionHash functionHash,
         ReadOnlySpan<byte> inputValue,
         ReadOnlySpan<byte> outputValue);
+
+    ValueTask<long> ReadEstimatedCacheSize();
 }

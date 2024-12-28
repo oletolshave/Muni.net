@@ -87,4 +87,24 @@ public class TestWithDefaults
 
         totalCallCalc.Should().Be(1);
     }
+
+    [Theory]
+    [InlineAutoData(5, 8)]
+    public async Task ItHandlesMultipleCachedValues(int first, int second)
+    {
+        var sut = CacheManagerMemory.New();
+
+        var fibCalcInner = new FibonacciCalc();
+        var fibCalc = sut.For(fibCalcInner);
+
+        var result1 = await fibCalc.Calculate(first);
+        var result2 = await fibCalc.Calculate(second);
+
+        var result3 = await fibCalc.Calculate(first);
+        var result4 = await fibCalc.Calculate(second);
+
+        result3.Should().Be(result1);
+        result4.Should().Be(result2);
+        fibCalcInner.CallCount.Should().Be(2);
+    }
 }

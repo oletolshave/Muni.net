@@ -12,21 +12,32 @@ public class CacheManagerMemory : ICacheManager
 
     public CacheManagerMemory(
         IFileSystem fileSystem,
-        AssemblyLoadContext assemblyLoadContext)
+        AssemblyLoadContext assemblyLoadContext,
+        long maxCacheSize)
     {
         _storageEngine = new();
 
         _cacheManager = new GenericCacheManager(fileSystem, assemblyLoadContext,
-            _storageEngine);
+            _storageEngine,
+            maxCacheSize);
     }
 
     public static CacheManagerMemory New(
         IFileSystem? fileSystem = null,
-        AssemblyLoadContext? assemblyLoadContext = null)
+        AssemblyLoadContext? assemblyLoadContext = null,
+        long? maxCacheBytes = null)
     {
+        var memoryInfo = GC.GetGCMemoryInfo();
+        if (maxCacheBytes is null)
+        {
+            // By default: 10% of memory available to .NET
+            maxCacheBytes = (long) (memoryInfo.TotalAvailableMemoryBytes * 0.1);
+        }
+
         return new CacheManagerMemory(
             fileSystem ?? new FileSystem(),
-            assemblyLoadContext ?? AssemblyLoadContext.Default);
+            assemblyLoadContext ?? AssemblyLoadContext.Default,
+            maxCacheBytes.Value);
     }
 
     public ICacheCalculation<TOutput, TInput>

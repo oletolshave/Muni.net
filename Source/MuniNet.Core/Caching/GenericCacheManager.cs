@@ -10,15 +10,18 @@ namespace MuniNet.Core.Caching;
 public class GenericCacheManager
 {
     private readonly ICacheStorageEngine _storageEngine;
+    private readonly long _maxCacheSizeBytes;
     private readonly AssemblyHashCalculator _assemblyHashCalculator;
 
     public GenericCacheManager(
         IFileSystem fileSystem,
         AssemblyLoadContext assemblyLoadContext,
-        ICacheStorageEngine storageEngine)
+        ICacheStorageEngine storageEngine,
+        long maxCacheSizeBytes)
     {
         _assemblyHashCalculator = new AssemblyHashCalculator(fileSystem, assemblyLoadContext);
         _storageEngine = storageEngine;
+        _maxCacheSizeBytes = maxCacheSizeBytes;
     }
 
     public ICacheCalculation<TOutput, TInput>
@@ -48,7 +51,19 @@ public class GenericCacheManager
         ReadOnlySpan<byte> inputValue,
         ReadOnlySpan<byte> outputValue)
     {
-        return _storageEngine.TryAdd(functionHash, inputValue, outputValue);
+        return TryAddCachedValueInternal(functionHash,
+            inputValue.ToArray(),
+            outputValue.ToArray());
+    }
+
+    private async ValueTask<bool> TryAddCachedValueInternal(
+        FunctionHash functionHash,
+        ReadOnlyMemory<byte> inputValue,
+        ReadOnlyMemory<byte> outputValue)
+    {
+        var currentCacheSize = await _storageEngine.ReadEstimatedCacheSize();
+
+        return await _storageEngine.TryAdd(functionHash, inputValue.Span, outputValue.Span);
     }
 
     private FunctionHash GetFunctionHash(Type calcType)
@@ -60,5 +75,12 @@ public class GenericCacheManager
         string typeName = calcType.FullName ?? string.Empty;
 
         return FunctionHash.CalculateFunctionHash(asmHash, typeName);
+    }
+
+    internal static long EstimateConsumedBytes(FunctionHash functionHash,
+        ReadOnlySpan<byte> inputValue,
+        ReadOnlySpan<byte> outputValue)
+    {
+        return inputValue.Length + outputValue.Length;
     }
 }

@@ -1,4 +1,5 @@
-﻿using MuniNet.Core.Hashing;
+﻿using MuniNet.Core.Caching;
+using MuniNet.Core.Hashing;
 using MuniNet.Core.Storage;
 
 namespace MuniNet.Storage.Memory;
@@ -59,6 +60,25 @@ internal class MemoryStorageEngine : ICacheStorageEngine
         }
 
         return ValueTask.FromResult(added);
+    }
+
+    public ValueTask<long> ReadEstimatedCacheSize()
+    {
+        long totalBytes = 0;
+
+        lock (_lock)
+        {
+            foreach (var element in _simpleList)
+            {
+                var elementEstimatedSize = element.FunctionHash.HashValue.Length
+                    + element.Input.Length
+                    + element.Output.Length
+                    + 16;   // Some overhead. Just a guess
+                totalBytes += elementEstimatedSize;
+            }
+        }
+
+        return ValueTask.FromResult(totalBytes);
     }
 
     private int FindIndexWhileLocked(FunctionHash functionHash, ReadOnlySpan<byte> inputValue)
