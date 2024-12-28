@@ -1,0 +1,8 @@
+services:
+  myredis:
+    image: my-redis
+    ports:
+      - 6379:6379
+    build:
+      context: .
+      dockerfile: Dockerfile
