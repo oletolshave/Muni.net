@@ -10,6 +10,12 @@ internal class RedisStorageEngine : ICacheStorageEngineSelfManaged
     {
         ConnectionMultiplexer redis = ConnectionMultiplexer.Connect("localhost");
         IDatabase db = redis.GetDatabase();
+
+        db.StringSet(new RedisKey("MyTest"), new RedisValue("ok?"));
+
+        var result = db.StringGet(new RedisKey("MyTest"));
+
+        Math.Abs(0);
     }
 
     public ValueTask<ReadOnlyMemory<byte>?> LookupCachedValue(FunctionHash functionHash, ReadOnlySpan<byte> inputValue)
