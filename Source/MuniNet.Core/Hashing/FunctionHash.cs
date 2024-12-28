@@ -31,7 +31,10 @@ public struct FunctionHash : IEquatable<FunctionHash>
 
     public override int GetHashCode()
     {
-        return _hashValue.GetHashCode();
+        var hashCode = new HashCode();
+        hashCode.AddBytes(HashValue.Span);
+
+        return hashCode.ToHashCode();
     }
 
     public override string ToString()

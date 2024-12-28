@@ -9,4 +9,5 @@ public class UnitTest1
     {
         var sut = CacheManagerRedis.New();
     }
+
 }
