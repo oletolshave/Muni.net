@@ -19,10 +19,11 @@ public class FibonacciCalcMemo : CalculationAsync<int, int>
     {
         _calls++;
 
-        return InnerCalc(input);
+        return InnerCalc(input, cancellationToken);
     }
 
-    private async ValueTask<int> InnerCalc(int input)
+    private async ValueTask<int> InnerCalc(int input,
+        CancellationToken cancellationToken)
     {
         if (input < 0)
             throw new ArgumentOutOfRangeException();
@@ -34,8 +35,8 @@ public class FibonacciCalcMemo : CalculationAsync<int, int>
             return 1;
 
         var calc = _cacheManager.For(this);
-        var f0 = await calc.Calculate(input - 2);
-        var f1 = await calc.Calculate(input - 1);
+        var f0 = await calc.CalculateAsync(input - 2, cancellationToken);
+        var f1 = await calc.CalculateAsync(input - 1, cancellationToken);
 
         return f0 + f1;
     }

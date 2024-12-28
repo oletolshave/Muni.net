@@ -2,7 +2,7 @@
 
 public interface ICacheCalculation<TOutput, TInput>
 {
-    ValueTask<TOutput> Calculate(
+    ValueTask<TOutput> CalculateAsync(
         TInput input,
         CancellationToken cancellationToken = default);
 }

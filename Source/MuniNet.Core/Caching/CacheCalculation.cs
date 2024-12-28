@@ -26,7 +26,7 @@ internal class CacheCalculation<TOutput, TInput> : ICacheCalculation<TOutput, TI
         _calc = calc;
     }
 
-    public async ValueTask<TOutput> Calculate(
+    public async ValueTask<TOutput> CalculateAsync(
        TInput input,
        CancellationToken cancellationToken = default)
     {

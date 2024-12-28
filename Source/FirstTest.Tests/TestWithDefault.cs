@@ -17,7 +17,7 @@ public class TestWithDefaults
         var sut = CacheManagerMemory.New();
 
         var fibCalc = new FibonacciCalc();
-        var actualResult = await sut.For(fibCalc).Calculate(nthNumber);
+        var actualResult = await sut.For(fibCalc).CalculateAsync(nthNumber);
 
         actualResult.Should().Be(expectedResult);
         fibCalc.CallCount.Should().Be(1);
@@ -36,9 +36,9 @@ public class TestWithDefaults
         var fibCalc = new FibonacciCalc();
         var calc = sut.For(fibCalc);
 
-        var actualResult1 = await calc.Calculate(nthNumber);
-        var actualResult2 = await calc.Calculate(nthNumber);
-        var actualResult3 = await calc.Calculate(nthNumber);
+        var actualResult1 = await calc.CalculateAsync(nthNumber);
+        var actualResult2 = await calc.CalculateAsync(nthNumber);
+        var actualResult3 = await calc.CalculateAsync(nthNumber);
 
         actualResult1.Should().Be(expectedResult);
         actualResult2.Should().Be(expectedResult);
@@ -57,9 +57,9 @@ public class TestWithDefaults
         var fibCalc = new FibonacciCalc();
         var calc = sut.For(fibCalc);
 
-        await calc.Calculate(nthNumber);
-        await calc.Calculate(nthNumber);
-        await calc.Calculate(nthNumber);
+        await calc.CalculateAsync(nthNumber);
+        await calc.CalculateAsync(nthNumber);
+        await calc.CalculateAsync(nthNumber);
 
         fibCalc.CallCount.Should().Be(1);
     }
@@ -77,9 +77,9 @@ public class TestWithDefaults
         var fibCalc2 = new FibonacciCalc();
         var fibCalc3 = new FibonacciCalc();
 
-        await sut.For(fibCalc1).Calculate(nthNumber);
-        await sut.For(fibCalc2).Calculate(nthNumber);
-        await sut.For(fibCalc3).Calculate(nthNumber);
+        await sut.For(fibCalc1).CalculateAsync(nthNumber);
+        await sut.For(fibCalc2).CalculateAsync(nthNumber);
+        await sut.For(fibCalc3).CalculateAsync(nthNumber);
 
         var totalCallCalc = fibCalc1.CallCount
             + fibCalc2.CallCount
@@ -97,11 +97,11 @@ public class TestWithDefaults
         var fibCalcInner = new FibonacciCalc();
         var fibCalc = sut.For(fibCalcInner);
 
-        var result1 = await fibCalc.Calculate(first);
-        var result2 = await fibCalc.Calculate(second);
+        var result1 = await fibCalc.CalculateAsync(first);
+        var result2 = await fibCalc.CalculateAsync(second);
 
-        var result3 = await fibCalc.Calculate(first);
-        var result4 = await fibCalc.Calculate(second);
+        var result3 = await fibCalc.CalculateAsync(first);
+        var result4 = await fibCalc.CalculateAsync(second);
 
         result3.Should().Be(result1);
         result4.Should().Be(result2);
