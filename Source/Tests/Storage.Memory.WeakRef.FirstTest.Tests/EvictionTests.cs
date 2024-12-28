@@ -8,7 +8,7 @@ namespace FirstTest.Tests;
 [Trait("Category", "CI")]
 public class EvictionTests
 {
-    [Theory(Skip = "Does not currently work")]
+    [Theory]
     [InlineAutoData(1000, 2)]
     public async Task ItDoesNotGrowTheCacheBeyondAllLimits(
         int calculationCount, int rounds)
@@ -25,6 +25,8 @@ public class EvictionTests
                 var plusOneResult = await plusOneCalc.CalculateAsync(i);
                 plusOneResult.Should().Be(i + 1);
             }
+
+            GC.Collect();
         }
 
         // It should not have been possible to keep all "calculationCount" results in the cache.

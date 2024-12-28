@@ -71,15 +71,18 @@ public class MemoryWeakRefStorageEngine : ICacheStorageEngineSelfManaged
 
         ReadOnlyMemory<byte>? result;
         lock (_lock)
-        {
-            if (_cache.Count > 0)
-            {
-                Math.Abs(0);
-            }
-
+        { 
             if (_cache.TryGetValue(newKey, out var value))
             {
-                result = value.Output;
+                if (value is null)
+                {
+                    result = null;
+                    _cache.Remove(newKey);
+                }
+                else
+                {
+                    result = value.Output;
+                }
             }
             else
             {
@@ -96,7 +99,9 @@ public class MemoryWeakRefStorageEngine : ICacheStorageEngineSelfManaged
 
         lock (_lock)
         {
-            var result = _cache.TryAdd(newKey, new CacheValue(outputValue.ToArray()));
+            var result = true;
+            _cache[newKey] = new CacheValue(outputValue.ToArray());
+            //var result = _cache.TryAdd(newKey, new CacheValue(outputValue.ToArray()));
 
             //if (_cache.TryGetValue(newKey, out var found))
             //{
