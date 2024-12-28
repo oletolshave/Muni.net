@@ -7,7 +7,7 @@ using System.Runtime.Loader;
 
 namespace MuniNet.Core.Caching;
 
-public class GenericCacheManager
+public class GenericCacheManager : ICacheManagerControl
 {
     private readonly ICacheStorageEngine _storageEngine;
     private readonly long _maxCacheSizeBytes;
@@ -41,6 +41,13 @@ public class GenericCacheManager
             calc);
     }
 
+    public Task GarbageCollect(CancellationToken cancellationToken = default)
+    {
+        // TODO: Implement this
+
+        return Task.CompletedTask;
+    }
+
     internal ValueTask<ReadOnlyMemory<byte>?> LookupCachedValue(FunctionHash functionHash,
         ReadOnlySpan<byte> inputValue)
     {
@@ -62,6 +69,8 @@ public class GenericCacheManager
         ReadOnlyMemory<byte> outputValue)
     {
         var currentCacheSize = await _storageEngine.ReadEstimatedCacheSize();
+
+        // TODO: Do we need to evict something from the cache?
 
         return await _storageEngine.TryAdd(functionHash, inputValue.Span, outputValue.Span);
     }

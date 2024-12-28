@@ -5,7 +5,7 @@ using System.Runtime.Loader;
 
 namespace MuniNet.Storage.Memory;
 
-public class CacheManagerMemory : ICacheManager
+public class CacheManagerMemory : ICacheManager, ICacheManagerControl
 {
     private readonly MemoryStorageEngine _storageEngine;
     private readonly GenericCacheManager _cacheManager;
@@ -44,6 +44,11 @@ public class CacheManagerMemory : ICacheManager
         For<TOutput, TInput>(CalculationAsync<TOutput, TInput> calc)
     {
         return _cacheManager.For<TOutput, TInput>(calc);
+    }
+
+    public Task GarbageCollect(CancellationToken cancellationToken = default)
+    {
+        return _cacheManager.GarbageCollect(cancellationToken);
     }
 }
 
