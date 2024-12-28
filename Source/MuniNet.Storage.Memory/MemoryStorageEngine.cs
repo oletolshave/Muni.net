@@ -17,7 +17,7 @@ internal struct CacheElement
     public ReadOnlyMemory<byte> Output { get; }
 }
 
-internal class MemoryStorageEngine : ICacheStorageEngine
+internal class MemoryStorageEngine : ICacheStorageEngineClassic
 {
     private readonly List<CacheElement> _simpleList = new();
     private readonly object _lock = new object();

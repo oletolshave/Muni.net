@@ -8,7 +8,7 @@ namespace MuniNet.Storage.Memory;
 public class CacheManagerMemory : ICacheManager, ICacheManagerControl
 {
     private readonly MemoryStorageEngine _storageEngine;
-    private readonly GenericCacheManager _cacheManager;
+    private readonly GenericCacheManagerClassic _cacheManager;
 
     public CacheManagerMemory(
         IFileSystem fileSystem,
@@ -17,7 +17,7 @@ public class CacheManagerMemory : ICacheManager, ICacheManagerControl
     {
         _storageEngine = new();
 
-        _cacheManager = new GenericCacheManager(fileSystem, assemblyLoadContext,
+        _cacheManager = new GenericCacheManagerClassic(fileSystem, assemblyLoadContext,
             _storageEngine,
             maxCacheSize);
     }

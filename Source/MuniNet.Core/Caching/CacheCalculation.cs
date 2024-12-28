@@ -6,14 +6,14 @@ namespace MuniNet.Core.Caching;
 
 internal class CacheCalculation<TOutput, TInput> : ICacheCalculation<TOutput, TInput>
 {
-    private readonly GenericCacheManager _cacheManager;
+    private readonly GenericCacheManagerClassic _cacheManager;
     private readonly FunctionHash _functionHash;
     private readonly ValueEncoder<TInput> _inputValueEncoder;
     private readonly ValueEncoder<TOutput> _outputValueEncoder;
     private readonly CalculationAsync<TOutput, TInput> _calc;
 
     internal CacheCalculation(
-        GenericCacheManager cacheManager,
+        GenericCacheManagerClassic cacheManager,
         FunctionHash functionHash,
         ValueEncoder<TInput> inputValueEncoder,
         ValueEncoder<TOutput> outputValueEncoder,

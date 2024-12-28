@@ -8,7 +8,6 @@ namespace FirstTest.Tests;
 [Trait("Category", "CI")]
 public class EvictionTests
 {
-    //[Theory(Skip = "Does not currently pass")]
     [Theory]
     [InlineAutoData(1024, 1000, 2)]
     public async Task ItDoesNotGrowTheCacheBeyondAllLimits(
@@ -25,8 +24,6 @@ public class EvictionTests
             {
                 var plusOneResult = await plusOneCalc.CalculateAsync(i);
                 plusOneResult.Should().Be(i + 1);
-
-                //await sut.GarbageCollect();
             }
         }
 

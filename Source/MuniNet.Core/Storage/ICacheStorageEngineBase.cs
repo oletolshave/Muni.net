@@ -2,7 +2,7 @@
 
 namespace MuniNet.Core.Storage;
 
-public interface ICacheStorageEngine
+public interface ICacheStorageEngineBase
 {
     ValueTask<ReadOnlyMemory<byte>?> LookupCachedValue(
         FunctionHash functionHash, ReadOnlySpan<byte> inputValue);
@@ -10,11 +10,4 @@ public interface ICacheStorageEngine
     ValueTask<bool> TryAdd(FunctionHash functionHash,
         ReadOnlySpan<byte> inputValue,
         ReadOnlySpan<byte> outputValue);
-
-    //IAsyncEnumerable<KeyValuePair<FunctionHash, ReadOnlyMemory<byte>>> ListKeys();
-
-    //ValueTask<bool> TryRemove(FunctionHash functionHas, ReadOnlySpan<byte> inputValue);
-    ValueTask RemoveAllKeys();
-
-    ValueTask<long> ReadEstimatedCacheSize();
 }

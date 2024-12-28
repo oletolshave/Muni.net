@@ -7,16 +7,16 @@ using System.Runtime.Loader;
 
 namespace MuniNet.Core.Caching;
 
-public class GenericCacheManager : ICacheManagerControl
+public class GenericCacheManagerClassic : ICacheManagerControl
 {
-    private readonly ICacheStorageEngine _storageEngine;
+    private readonly ICacheStorageEngineClassic _storageEngine;
     private readonly long _maxCacheSizeBytes;
     private readonly AssemblyHashCalculator _assemblyHashCalculator;
 
-    public GenericCacheManager(
+    public GenericCacheManagerClassic(
         IFileSystem fileSystem,
         AssemblyLoadContext assemblyLoadContext,
-        ICacheStorageEngine storageEngine,
+        ICacheStorageEngineClassic storageEngine,
         long maxCacheSizeBytes)
     {
         _assemblyHashCalculator = new AssemblyHashCalculator(fileSystem, assemblyLoadContext);
