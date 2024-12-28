@@ -1,3 +1,5 @@
+Testing in Docker: https://medium.com/@successfulindian147/integration-tests-with-docker-and-net-6-a-comprehensive-guide-e52e58bb7944
+
 * Deps
 ===========
 
