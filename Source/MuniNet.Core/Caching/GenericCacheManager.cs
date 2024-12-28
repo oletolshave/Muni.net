@@ -25,7 +25,7 @@ public class GenericCacheManager
     }
 
     public ICacheCalculation<TOutput, TInput>
-        For<TOutput, TInput>(Calculation<TOutput, TInput> calc)
+        For<TOutput, TInput>(CalculationAsync<TOutput, TInput> calc)
     {
         var calcType = calc.GetType();
         var functionHash = GetFunctionHash(calcType);

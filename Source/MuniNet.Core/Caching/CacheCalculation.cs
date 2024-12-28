@@ -10,14 +10,14 @@ internal class CacheCalculation<TOutput, TInput> : ICacheCalculation<TOutput, TI
     private readonly FunctionHash _functionHash;
     private readonly ValueEncoder<TInput> _inputValueEncoder;
     private readonly ValueEncoder<TOutput> _outputValueEncoder;
-    private readonly Calculation<TOutput, TInput> _calc;
+    private readonly CalculationAsync<TOutput, TInput> _calc;
 
     internal CacheCalculation(
         GenericCacheManager cacheManager,
         FunctionHash functionHash,
         ValueEncoder<TInput> inputValueEncoder,
         ValueEncoder<TOutput> outputValueEncoder,
-        Calculation<TOutput, TInput> calc)
+        CalculationAsync<TOutput, TInput> calc)
     {
         _cacheManager = cacheManager;
         _functionHash = functionHash;
@@ -40,7 +40,7 @@ internal class CacheCalculation<TOutput, TInput> : ICacheCalculation<TOutput, TI
             return outputValue;
         }
 
-        var result = _calc.Calculate(input);
+        var result = await _calc.CalculateAsync(input);
         var newOutputEncoded = _outputValueEncoder.Encode(result);
 
         await _cacheManager.TryAddCachedValue(_functionHash, encodedInput.Span, newOutputEncoded.Span);

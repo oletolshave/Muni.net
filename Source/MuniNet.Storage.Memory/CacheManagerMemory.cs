@@ -41,7 +41,7 @@ public class CacheManagerMemory : ICacheManager
     }
 
     public ICacheCalculation<TOutput, TInput>
-        For<TOutput, TInput>(Calculation<TOutput, TInput> calc)
+        For<TOutput, TInput>(CalculationAsync<TOutput, TInput> calc)
     {
         return _cacheManager.For<TOutput, TInput>(calc);
     }

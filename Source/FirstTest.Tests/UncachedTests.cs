@@ -16,11 +16,11 @@ public class UncachedTests
     [InlineAutoData(6, 8)]
     [InlineAutoData(7, 13)]
     [InlineAutoData(8, 21)]
-    public void ItCalculatesSomeCorrectFibonacciNumbers(int nthNumber, int expectedResult)
+    public async Task ItCalculatesSomeCorrectFibonacciNumbers(int nthNumber, int expectedResult)
     {
         var sut = new FibonacciCalc();
 
-        var actualResult = sut.Calculate(nthNumber);
+        var actualResult = await sut.CalculateAsync(nthNumber);
 
         actualResult.Should().Be(expectedResult);
     }
