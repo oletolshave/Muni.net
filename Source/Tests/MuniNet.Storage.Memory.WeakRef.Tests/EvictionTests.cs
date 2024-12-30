@@ -1,9 +1,8 @@
 ﻿using AutoFixture.Xunit2;
 using SimpleTestLib;
 using FluentAssertions;
-using MuniNet.Storage.Memory.WeakRef;
 
-namespace FirstTest.Tests;
+namespace MuniNet.Storage.Memory.WeakRef.Tests;
 
 [Trait("Category", "CI")]
 public class EvictionTests
