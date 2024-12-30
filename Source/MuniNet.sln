@@ -53,6 +53,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{230B66
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MuniNet.StorageAgnostic.Tests", "Tests\MuniNet.StorageAgnostic.Tests\MuniNet.StorageAgnostic.Tests.csproj", "{F5683651-9A73-4244-9904-A932AC8774FB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleTestLib", "Tests\SimpleTestLib\SimpleTestLib.csproj", "{A513560D-89CB-479B-98F4-81379839DC86}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -103,6 +105,10 @@ Global
 		{F5683651-9A73-4244-9904-A932AC8774FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5683651-9A73-4244-9904-A932AC8774FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F5683651-9A73-4244-9904-A932AC8774FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A513560D-89CB-479B-98F4-81379839DC86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A513560D-89CB-479B-98F4-81379839DC86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A513560D-89CB-479B-98F4-81379839DC86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A513560D-89CB-479B-98F4-81379839DC86}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -127,5 +133,6 @@ Global
 		{5F4B5041-7D08-47E3-A3CD-CE084F5DFA35} = {99FD1E51-B9C5-445D-B0B1-915348D75B5F}
 		{230B66AD-2775-4901-A01F-AC72D6DC8B10} = {94E96FB0-B76E-4EFE-B910-4E2BDCD381B5}
 		{F5683651-9A73-4244-9904-A932AC8774FB} = {230B66AD-2775-4901-A01F-AC72D6DC8B10}
+		{A513560D-89CB-479B-98F4-81379839DC86} = {230B66AD-2775-4901-A01F-AC72D6DC8B10}
 	EndGlobalSection
 EndGlobal

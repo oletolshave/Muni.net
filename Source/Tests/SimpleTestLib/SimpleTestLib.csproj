@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FirstTestLib\FirstTestLib.csproj" />
+    <ProjectReference Include="..\..\MuniNet.Base\MuniNet.Base.csproj" />
   </ItemGroup>
 
 </Project>
