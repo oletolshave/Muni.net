@@ -1,10 +1,10 @@
 using MuniNet.Base;
-using MuniNet.StorageAgnostic.Tests;
+using MuniNet.StorageAgnostic.Tests.SelfManaged;
 
 namespace MuniNet.Storage.Memory.WeakRef.Tests;
 
 [Trait("Category", "CI")]
-public class StorageAgnosticTests : AllTests
+public class StorageAgnosticTests : SelfManaged_AllTests
 {
     protected override ICacheManager NewCacheManager()
     {

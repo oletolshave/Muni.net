@@ -1,10 +1,10 @@
 using MuniNet.Base;
-using MuniNet.StorageAgnostic.Tests;
+using MuniNet.StorageAgnostic.Tests.SelfManaged;
 
 namespace MuniNet.Storage.Redis.Tests;
 
-//[Trait("Category", "RedisIntegration")]
-public class StorageAgnosticTests : AllTests
+[Trait("Category", "RedisIntegration")]
+public class StorageAgnosticTests : SelfManaged_AllTests
 {
     protected override ICacheManager NewCacheManager()
     {

@@ -1,6 +1,6 @@
 ﻿using MuniNet.Base;
 
-namespace MuniNet.StorageAgnostic.Tests;
+namespace MuniNet.StorageAgnostic.Tests.Common;
 
 public abstract partial class AllTests
 {

@@ -3,7 +3,7 @@ using FluentAssertions;
 using SimpleTestLib;
 using Xunit;
 
-namespace MuniNet.StorageAgnostic.Tests;
+namespace MuniNet.StorageAgnostic.Tests.Common;
 
 public partial class AllTests
 {
@@ -27,22 +27,5 @@ public partial class AllTests
         actualResult1.Should().Be(expectedResult);
         actualResult2.Should().Be(expectedResult);
         actualResult3.Should().Be(expectedResult);
-    }
-
-    [Theory]
-    [InlineAutoData(0, 1)]
-    [InlineAutoData(1, 1)]
-    [InlineAutoData(6, 7)]
-    [InlineAutoData(8, 9)]
-    public async Task ItOnlyCalculatesEachFibonacciNumberOnce(int nthNumber, int expectedCalls)
-    {
-        var sut = NewCacheManager();
-
-        var fibCalc = new FibonacciCalcMemo(sut);
-        var calc = sut.For(fibCalc);
-
-        await calc.CalculateAsync(nthNumber);
-
-        fibCalc.CallCount.Should().Be(expectedCalls);
     }
 }
