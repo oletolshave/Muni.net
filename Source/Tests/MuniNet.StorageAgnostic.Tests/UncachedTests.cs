@@ -3,7 +3,7 @@ using FluentAssertions;
 using SimpleTestLib;
 using Xunit;
 
-namespace FirstTest.Tests;
+namespace MuniNet.StorageAgnostic.Tests;
 
 [Trait("Category", "CI")]
 public class UncachedTests
