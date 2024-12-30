@@ -1,11 +1,10 @@
-﻿using MuniNet.Base;
-using MuniNet.Storage.Memory;
+using MuniNet.Base;
 using MuniNet.StorageAgnostic.Tests;
 
-namespace FirstTest.Tests;
+namespace MuniNet.Storage.Memory.Tests;
 
 [Trait("Category", "CI")]
-public class TestWithDefaults : AllTests
+public class StorageAgnosticTests : AllTests
 {
     protected override ICacheManager NewCacheManager()
     {

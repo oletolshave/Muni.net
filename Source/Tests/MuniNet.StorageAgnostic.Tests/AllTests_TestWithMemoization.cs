@@ -1,21 +1,20 @@
 ﻿using AutoFixture.Xunit2;
 using FluentAssertions;
-using MuniNet.Storage.Memory;
 using SimpleTestLib;
+using Xunit;
 
-namespace FirstTest.Tests;
+namespace MuniNet.StorageAgnostic.Tests;
 
-[Trait("Category", "CI")]
-public class TestWithMemoization
+public partial class AllTests
 {
     [Theory]
     [InlineAutoData(0, 0)]
     [InlineAutoData(1, 1)]
     [InlineAutoData(6, 8)]
     [InlineAutoData(8, 21)]
-    public async Task ItReturnsCorrectResultsOnMultipleCalculations(int nthNumber, int expectedResult)
+    public async Task ItReturnsCorrectMemoizedResultsOnMultipleCalculations(int nthNumber, int expectedResult)
     {
-        var sut = CacheManagerMemory.New();
+        var sut = NewCacheManager();
 
 
         var fibCalc = new FibonacciCalcMemo(sut);
@@ -37,7 +36,7 @@ public class TestWithMemoization
     [InlineAutoData(8, 9)]
     public async Task ItOnlyCalculatesEachFibonacciNumberOnce(int nthNumber, int expectedCalls)
     {
-        var sut = CacheManagerMemory.New();
+        var sut = NewCacheManager();
 
         var fibCalc = new FibonacciCalcMemo(sut);
         var calc = sut.For(fibCalc);
