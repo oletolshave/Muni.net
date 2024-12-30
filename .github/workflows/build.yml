@@ -32,6 +32,6 @@ jobs:
  
     - name: Run Redis tests
       run: |
-        cd Source/tests/Dockers/Redis
+        cd Source/Tests/Dockers/Redis
         docker compose up -d
         docker compose down

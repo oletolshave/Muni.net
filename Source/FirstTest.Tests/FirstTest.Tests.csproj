@@ -20,7 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MuniNet.Storage.Memory\MuniNet.Storage.Memory.csproj" />
-    <ProjectReference Include="..\Tests\FirstTestLib\FirstTestLib.csproj" />
+    <ProjectReference Include="..\Tests\MuniNet.StorageAgnostic.Tests\MuniNet.StorageAgnostic.Tests.csproj" />
   </ItemGroup>
 
   <ItemGroup>

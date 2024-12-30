@@ -1,6 +1,7 @@
 ﻿using AutoFixture.Xunit2;
 using FluentAssertions;
 using MuniNet.Storage.Memory;
+using SimpleTestLib;
 
 namespace FirstTest.Tests;
 
