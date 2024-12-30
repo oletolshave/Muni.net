@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SimpleTestLib.DataTypes;
+﻿namespace SimpleTestLib.DataTypes;
 
 public class SimpleWithPayload
 {
-    //public SimpleWithPayload()
+    public SimpleWithPayload(int intValue, byte[] payload)
+    {
+        IntValue = intValue;
+        Payload = payload;
+    }
+
+    public int IntValue { get; }
+    public byte[] Payload { get; }
 }
