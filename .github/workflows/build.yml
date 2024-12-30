@@ -36,3 +36,10 @@ jobs:
         cd ../../..
         dotnet test --configuration Release --logger trx --results-directory "XunitTestReports" --filter "Category=RedisIntegration"
         cd Tests/Dockers/Redis && docker compose down
+    
+    - name: Publish Test Results
+      uses: EnricoMi/publish-unit-test-result-action@v2
+      if: always()
+      with:
+        files: |
+          Source/XunitTestReports/**/*.trx

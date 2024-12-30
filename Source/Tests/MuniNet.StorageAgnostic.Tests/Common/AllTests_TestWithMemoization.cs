@@ -16,7 +16,6 @@ public partial class AllTests
     {
         var sut = NewCacheManager();
 
-
         var fibCalc = new FibonacciCalcMemo(sut);
         var calc = sut.For(fibCalc);
 
