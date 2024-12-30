@@ -34,4 +34,5 @@ jobs:
       run: |
         cd Source/Tests/Dockers/Redis
         docker compose up -d
+        dotnet test --configuration Release --logger trx --results-directory "XunitTestReports" --filter "Category=RedisIntegration"
         docker compose down

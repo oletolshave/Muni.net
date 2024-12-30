@@ -1,5 +1,5 @@
 using AutoFixture.Xunit2;
-using FirstTest;
+using SimpleTestLib;
 using FluentAssertions;
 using MuniNet.Storage.Memory.WeakRef;
 
