@@ -5,7 +5,7 @@ using System.Runtime.Loader;
 
 namespace MuniNet.Storage.Redis;
 
-public class CacheManagerRedis
+public class CacheManagerRedis : ICacheManager
 {
     private readonly RedisStorageEngine _storageEngine;
     private readonly GenericCacheManagerSelfManaged _cacheManager;
@@ -18,10 +18,6 @@ public class CacheManagerRedis
 
         _cacheManager = new GenericCacheManagerSelfManaged(fileSystem, assemblyLoadContext,
             _storageEngine);
-
-        //_cacheManager = new GenericCacheManagerClassic(fileSystem, assemblyLoadContext,
-        //    _storageEngine,
-        //    maxCacheSize);
     }
 
     public static CacheManagerRedis New(

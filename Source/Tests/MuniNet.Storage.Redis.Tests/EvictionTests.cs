@@ -3,10 +3,10 @@ using SimpleTestLib;
 using FluentAssertions;
 using MuniNet.Storage.Redis;
 
-namespace Storage.Redis.FirstTest.Tests;
+namespace MuniNet.Storage.Redis.Tests;
 
 [Trait("Category", "RedisIntegration")]
-public class UnitTest1
+public class EvictionTests
 {
     [Theory]
     [InlineAutoData(1000, 2)]
