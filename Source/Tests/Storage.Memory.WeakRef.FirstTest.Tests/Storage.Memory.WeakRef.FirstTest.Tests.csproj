@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\MuniNet.Storage.Memory.WeakRef\MuniNet.Storage.Memory.WeakRef.csproj" />
+    <ProjectReference Include="..\MuniNet.StorageAgnostic.Tests\MuniNet.StorageAgnostic.Tests.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -30,4 +30,10 @@ jobs:
       working-directory: Source
       run: dotnet test --configuration Release --logger trx --results-directory "XunitTestReports" --filter "Category=CI"
  
-  
+    - name: Run Redis tests
+      working-directory: Source
+      run: |
+        cd tests/Docker/Redis
+        docker compose up -d
+        docker compose down
+        
