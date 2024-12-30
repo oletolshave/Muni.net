@@ -1,6 +1,7 @@
 using AutoFixture.Xunit2;
 using FluentAssertions;
 using SimpleTestLib;
+using Xunit;
 
 namespace FirstTest.Tests;
 
