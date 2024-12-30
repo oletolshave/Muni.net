@@ -12,9 +12,10 @@ public class CacheManagerRedis : ICacheManager
 
     public CacheManagerRedis(
             IFileSystem fileSystem,
-            AssemblyLoadContext assemblyLoadContext)
+            AssemblyLoadContext assemblyLoadContext,
+            string redisConfigurationName)
     {
-        _storageEngine = new();
+        _storageEngine = new (redisConfigurationName);
 
         _cacheManager = new GenericCacheManagerSelfManaged(fileSystem, assemblyLoadContext,
             _storageEngine);
@@ -22,11 +23,13 @@ public class CacheManagerRedis : ICacheManager
 
     public static CacheManagerRedis New(
         IFileSystem? fileSystem = null,
-        AssemblyLoadContext? assemblyLoadContext = null)
+        AssemblyLoadContext? assemblyLoadContext = null,
+        string? redisConfigurationName = null)
     {
         return new CacheManagerRedis(
             fileSystem ?? new FileSystem(),
-            assemblyLoadContext ?? AssemblyLoadContext.Default);
+            assemblyLoadContext ?? AssemblyLoadContext.Default,
+            redisConfigurationName: redisConfigurationName ?? "localhost");
     }
 
     public ICacheCalculation<TOutput, TInput> For<TOutput, TInput>(CalculationAsync<TOutput, TInput> calc)

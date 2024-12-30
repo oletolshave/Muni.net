@@ -11,12 +11,11 @@ internal class RedisStorageEngine : ICacheStorageEngineSelfManaged
     private IDatabase? _database;
     private readonly string _configurationName;
     private readonly object _lock = new object();
-    private bool _connecting;
     private readonly SemaphoreSlim _connectedSem;
 
-    public RedisStorageEngine()
+    public RedisStorageEngine(string configurationName)
     {
-        _configurationName = "localhost";
+        _configurationName = configurationName;
         _connectedSem = new SemaphoreSlim(1);
     }
 
