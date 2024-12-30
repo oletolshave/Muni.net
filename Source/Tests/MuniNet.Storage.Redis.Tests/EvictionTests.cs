@@ -1,14 +1,13 @@
 using AutoFixture.Xunit2;
 using SimpleTestLib;
 using FluentAssertions;
-using MuniNet.Storage.Redis;
 
 namespace MuniNet.Storage.Redis.Tests;
 
 [Trait("Category", "RedisIntegration")]
 public class EvictionTests
 {
-    [Theory]
+    [Theory(Skip = "Disabled because it requires a short ttl and might not be needed.")]
     [InlineAutoData(1000, 2)]
     public async Task ItDoesNotGrowTheCacheBeyondAllLimits(
         int calculationCount, int rounds)

@@ -19,14 +19,16 @@ internal class RedisStorageEngine : ICacheStorageEngineSelfManaged
         _connectedSem = new SemaphoreSlim(1);
     }
 
-    public ValueTask<ReadOnlyMemory<byte>?> LookupCachedValue(FunctionHash functionHash, ReadOnlySpan<byte> inputValue)
+    public ValueTask<ReadOnlyMemory<byte>?> LookupCachedValue(
+        FunctionHash functionHash, ReadOnlySpan<byte> inputValue)
     {
         var redisKey = MakeRedisKey(functionHash, inputValue);
 
         return LookupCachedValueInner(redisKey, CancellationToken.None);
     }
 
-    public ValueTask<bool> TryAdd(FunctionHash functionHash, ReadOnlySpan<byte> inputValue, ReadOnlySpan<byte> outputValue)
+    public ValueTask<bool> TryAdd(
+        FunctionHash functionHash, ReadOnlySpan<byte> inputValue, ReadOnlySpan<byte> outputValue)
     {
         var redisKey = MakeRedisKey(functionHash, inputValue);
         var redisValue = MakeRedisValue(outputValue);
@@ -57,14 +59,13 @@ internal class RedisStorageEngine : ICacheStorageEngineSelfManaged
     {
         var db = await EnsureConnected(cancellationToken);
 
-        return await db.StringSetAsync(redisKey, redisValue, TimeSpan.FromSeconds(1));
+        return await db.StringSetAsync(redisKey, redisValue);
     }
 
     private RedisKey MakeRedisKey(FunctionHash functionHash, ReadOnlySpan<byte> value)
     {
         var sb = new StringBuilder();
-        var functionHashString = Convert.ToBase64String(functionHash.HashValue.Span);
-
+  
         sb.Append(functionHash);
         sb.Append('_');
         sb.Append(Convert.ToBase64String(value));
@@ -76,10 +77,7 @@ internal class RedisStorageEngine : ICacheStorageEngineSelfManaged
 
     private RedisValue MakeRedisValue(ReadOnlySpan<byte> value)
     {
-        var sb = new StringBuilder();
-        sb.Append(Convert.ToBase64String(value));
-
-        return new RedisValue(sb.ToString());
+        return new RedisValue(Convert.ToBase64String(value));
     }
 
     private async ValueTask<IDatabase> EnsureConnected(CancellationToken cancellationToken)

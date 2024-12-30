@@ -6,6 +6,8 @@ public struct FunctionHash : IEquatable<FunctionHash>
 {
     private readonly HashIdent _algorithm;
     private readonly ReadOnlyMemory<byte>? _hashValue;
+    private int? _hashCode;
+    private string? _toString;
 
     public FunctionHash(HashIdent algorithm, ReadOnlyMemory<byte> hashValue)
     {
@@ -31,18 +33,28 @@ public struct FunctionHash : IEquatable<FunctionHash>
 
     public override int GetHashCode()
     {
+        if (_hashCode is not null)
+            return _hashCode.Value;
+
         var hashCode = new HashCode();
         hashCode.AddBytes(HashValue.Span);
 
-        return hashCode.ToHashCode();
+        _hashCode = hashCode.ToHashCode();
+
+        return _hashCode.Value;
     }
 
     public override string ToString()
     {
-        if (_algorithm == HashIdent.MD5)
-            return $"MD5:{Convert.ToBase64String(HashValue.Span)}";
+        if (_toString is null)
+        {
+            if (_algorithm == HashIdent.MD5)
+                _toString = $"MD5:{Convert.ToBase64String(HashValue.Span)}";
+            else
+                _toString = "(Unknown)";
+        }
 
-        return "(Unknown)";
+        return _toString;
     }
 
     public static bool operator ==(FunctionHash x, FunctionHash y)
